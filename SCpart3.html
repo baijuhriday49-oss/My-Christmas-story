@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 3 – The End</title>
+<style>
+body {
+  margin: 0;
+  background: #0b1d2a;
+  color: white;
+  font-family: Georgia, serif;
+  text-align: center;
+}
+
+/* Image */
+.chapter-end-image {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.6);
+}
+
+/* Snow */
+.snowflake {
+  position: fixed;
+  top: -20px;
+  pointer-events: none;
+  animation: fall linear forwards;
+  z-index: 999;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+
+/* Music */
+#musicBtn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* ENDING SCREEN */
+#endingOverlay {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  opacity: 1;
+  transition: opacity 2s ease;
+}
+
+#endingOverlay.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#endingContent {
+  text-align: center;
+  animation: zoomFade 2s ease forwards;
+}
+
+@keyframes zoomFade {
+  from { opacity: 0; transform: scale(1.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Button */
+.next {
+  display: inline-block;
+  margin: 40px auto;
+  padding: 12px 24px;
+  border: 2px solid white;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+}
+.next:hover {
+  background: white;
+  color: black;
+}
+</style>
+</head>
+
+<body>
+
+<button id="musicBtn">🔇</button>
+<img src="images2/img_SC3.png" class="chapter-end-image"style="width: 90%;">
+
+<!-- YOUR STORY (UNCHANGED) -->
+<h1>Chapter 3 — The End</h1>
+
+<p>The snow outside did not stop.</p>
+<p>It covered the streets, the rooftops, the trees—until the world looked clean and quiet again.</p>
+<p>Too quiet. Inside the house, Timi stood frozen, staring at Santa’s glowing eyes.</p>
+<p>The silver bell slipped from his fingers and hit the floor. 🔔</p>
+<p>The sound echoed… and then everything went still.</p>
+<p>Santa straightened up slowly. The blue glow in his eyes faded.</p>
+<p>“It was never about punishment,” Santa said softly.</p>
+<p>“It was about remembering.”</p>
+<p>The room warmed.</p>
+<p>The fire returned.</p>
+<p>The Christmas lights flickered back to life.</p>
+<p>“Did you learn something tonight?”</p>
+<p>Santa vanished.</p>
+<p><b>— The End —</b></p>
+
+<h2>Credits</h2>
+<p><strong>Story</strong><br>Hriday</p>
+<p><strong>Music</strong><br>Christmas Song</p>
+<a href="SCpart2.HTML" class="back">← Back to Part 2</a>
+
+<a class="next" href="SC_mini_game.HTML">▶ Mini Game</a>
+
+<audio id="bgMusic" loop>
+  <source src="audios/Christmas_song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ENDING SCREEN -->
+<div id="endingOverlay">
+  <div id="endingContent">
+    <h1>THE END</h1>
+    <p>Thank you for playing ❄️</p>
+  </div>
+</div>
+
+<script>
+/* Snow */
+const snowChars = ["❄", "❅", "❆"];
+setInterval(() => {
+  const s = document.createElement("div");
+  s.className = "snowflake";
+  s.textContent = snowChars[Math.floor(Math.random()*3)];
+  s.style.left = Math.random()*window.innerWidth+"px";
+  s.style.fontSize = 14 + Math.random()*24 + "px";
+  s.style.animationDuration = 6 + Math.random()*6 + "s";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),12000);
+},400);
+
+/* Music */
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
+
+btn.onclick = () => {
+  if (music.paused) {
+    music.play();
+    btn.textContent = "🔊";
+  } else {
+    music.pause();
+    btn.textContent = "🔇";
+  }
+};
+
+/* ENDING SCREEN CONTROL */
+window.addEventListener("load", () => {
+  const end = document.getElementById("endingOverlay");
+
+  // Hide after 3 seconds
+  setTimeout(() => {
+    end.classList.add("hide");
+  }, 3000);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Snow Catch Game</title>
+
+<style>
+  body {
+    margin: 0;
+    background: #0b1d2a;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    touch-action: none;
+    overscroll-behavior: none;
+}
+  }
+
+  h1 {
+    text-align: center;
+    margin: 10px;
+  }
+
+  #score {
+    text-align: center;
+    font-size: 20px;
+  }
+
+  #game {
+    position: relative;
+    width: 100vw;
+    height: 80vh;
+    border-top: 2px solid white;
+  }
+
+  .snow {
+    position: absolute;
+    top: 0;
+    font-size: 24px;
+  }
+
+  #basket {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>❄️ Catch the Snow ❄️</h1>
+<div id="score">Score: 0</div>
+
+<div id="game">
+  <div id="basket">🎁</div>
+</div>
+
+<script>
+  const game = document.getElementById("game");
+  const basket = document.getElementById("basket");
+  const scoreText = document.getElementById("score");
+  let score = 0;
+
+  // Move basket with touch or mouse
+  game.addEventListener("mousemove", (e) => {
+    basket.style.left = e.clientX + "px";
+  });
+
+  game.addEventListener("touchmove", (e) => {
+  e.preventDefault(); // stops screen moving
+  basket.style.left = e.touches[0].clientX + "px";
+  });
+
+  // Create snowflakes
+  function createSnow() {
+    const snow = document.createElement("div");
+    snow.className = "snow";
+    snow.innerHTML = "❄️";
+    snow.style.left = Math.random() * window.innerWidth + "px";
+    game.appendChild(snow);
+
+    let fall = 0;
+    const interval = setInterval(() => {
+      fall += 8;
+      snow.style.top = fall + "px";
+
+      const snowRect = snow.getBoundingClientRect();
+      const basketRect = basket.getBoundingClientRect();
+
+      // Collision
+      if (
+        snowRect.bottom > basketRect.top &&
+        snowRect.left < basketRect.right &&
+        snowRect.right > basketRect.left
+      ) {
+        score++;
+        scoreText.innerText = "Score: " + score;
+        snow.remove();
+        clearInterval(interval);
+      }
+
+      // Missed snow
+      if (fall > window.innerHeight) {
+        snow.remove();
+        clearInterval(interval);
+      }
+    }, 20);
+  }
+
+  setInterval(createSnow, 800);
+</script>
+</body>
+</html>

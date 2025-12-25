@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Night Santa Laughed — Part 2</title>
+<style>
+  .continuing {
+  display: block;
+  width: 80%;
+  max-width: 300px;
+  margin: 40px auto;
+  padding: 14px 0;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  border: 2px solid white;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+}
+
+.continuing:hover {
+  background: white;
+  color: black;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+</style>
+
+<style>
+/* GENERAL */
+body {
+  background: #0b1d2a;
+  color: #f2f2f2;
+  font-family: Georgia, serif;
+  margin: 0;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+/* IMAGE */
+img {
+  width: 80%;
+  display: block;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+
+/* TEXT */
+h1 {
+  text-align: center;
+  margin-top: 30px;
+}
+
+p {
+  max-width: 800px;
+  margin: 10px auto;
+  line-height: 1.6;
+}
+
+/* SNOW BACKGROUND */
+.snow {
+  position: fixed;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image:
+    radial-gradient(white 2px, transparent 3px),
+    radial-gradient(white 1.5px, transparent 3px),
+    radial-gradient(white 1px, transparent 3px);
+  background-size: 100px 100px, 150px 150px, 200px 200px;
+  animation: snow 10s linear infinite;
+}
+
+@keyframes snow {
+  from { background-position: 0 0, 0 0, 0 0; }
+  to { background-position: 0 1000px, 0 800px, 0 600px; }
+}
+
+/* MUSIC */
+#musicBtn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  z-index: 9999;
+  cursor: pointer;
+}
+
+/* BUTTONS */
+.back, .next {
+  display: block;
+  text-align: center;
+  margin: 40px 0;
+  font-size: 22px;
+  color: #ccc;
+  text-decoration: none;
+}
+
+.next {
+  font-size: 42px;
+  opacity: 0.8;
+}
+
+.next:hover, .back:hover {
+  color: white;
+}
+
+/* SNOWFLAKES */
+.snowflake {
+  position: fixed;
+  top: -40px;
+  pointer-events: none;
+  animation: fall linear;
+  z-index: 9999;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+
+/* END SCREEN */
+#endScreen {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  color: white;
+  letter-spacing: 5px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2s ease;
+  z-index: 99999;
+}
+</style>
+</head>
+
+<body>
+
+<img src="images2/img_SC2.jpg"style="width: 100%;">
+
+<div class="snow"></div>
+
+<button id="musicBtn">🔇</button>
+
+<audio id="bgMusic" loop>
+  <source src="audios/Christmas_song.mp3" type="audio/mpeg">
+</audio>
+
+<h1>The Night Santa Laughed — Part 2</h1>
+
+<!-- 🔹 YOUR STORY (UNCHANGED) -->
+<p>The room stayed silent long after Santa vanished.</p>
+<p>Timi sat frozen on the rug, the dusty box still resting in his lap.</p>
+<p>The torn shoe lay sideways, its broken lace curling like a dead spider.</p>
+<p>The snapped pencil rolled gently, stopping against the edge of the box as if it, too, was afraid to move.</p>
+<p>The fireplace crackled once… then went quiet.</p>
+<p>No warmth. No light.</p>
+<p>Only the ticking clock remained.</p>
+<p>Tick.</p>
+<p>Tick.</p>
+<p>Tick.</p>
+<p>Timi slowly lifted his head.</p>
+<p>The Christmas tree still stood in the corner, but its lights flickered weakly.</p>
+<p>Shadows stretched across the walls.</p>
+<p>“Santa?” Timi whispered.</p>
+<p>No answer.</p>
+<p>His throat tightened.</p>
+<p>Then he heard it.</p>
+<p>Ha… ha… ha…</p>
+<p>The clock struck midnight.</p>
+<p>DONG.</p>
+<p>Every light went out.</p>
+<p>Santa returned.</p>
+<p>“Rules,” he whispered.</p>
+<p>The box shook.</p>
+<p>The pencil snapped.</p>
+<p>Then silence.</p>
+<p>Morning came.</p>
+<p>But something had changed.</p>
+<p>Because some nights never end.</p>
+<p>And some laughs…</p>
+<p>Never forget.</p>
+
+<a href="SCpart1.html" class="back">← Back to Part 1</a>
+<a class="continuing" href="SCpart3.HTML">▶continuing...</a>
+
+<!-- END SCREEN -->
+
+<script>
+/* Snow */
+const flakes = ["❄️","❅","❆"];
+setInterval(() => {
+  const s = document.createElement("div");
+  s.className = "snowflake";
+  s.textContent = flakes[Math.floor(Math.random()*flakes.length)];
+  s.style.left = Math.random()*window.innerWidth+"px";
+  s.style.fontSize = 16 + Math.random()*24 + "px";
+  s.style.animationDuration = 6 + Math.random()*6 + "s";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),12000);
+},400);
+
+/* Music */
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
+
+btn.onclick = () => {
+  if (music.paused) {
+    music.play();
+    btn.textContent = "🔊";
+  } else {
+    music.pause();
+    btn.textContent = "🔇";
+  }
+};
+</script>
+
+</body>
+</html>
